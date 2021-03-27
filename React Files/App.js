@@ -14,7 +14,7 @@ class App extends Component{
     form_data.append('file', file);
     var fr = new FileReader()
     fr.onload = (eve) =>{
-      fetch("https://pyra-ingredient.herokuapp.com/process", {
+      fetch("http://localhost:5000/process", {
         method: "POST",
         body: form_data
       }).then((response) => {
