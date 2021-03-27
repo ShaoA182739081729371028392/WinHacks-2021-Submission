@@ -1,16 +1,16 @@
 from flask import Flask, request, jsonify
-#from flask_cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin
 from model import load_model, inference
 import PIL.Image as Image
 import io
 import os
 import numpy as np
 app = Flask(__name__)
-#cors = CORS(app)
-#app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 model = load_model()
 @app.route("/process", methods = ["POST"])
-#@cross_origin()
+@cross_origin()
 def process():
     file = request.files['file']
     image = np.array(Image.open(io.BytesIO(file.read())).convert("RGB"))
@@ -19,4 +19,4 @@ def process():
     return jsonify(output)
 
 if __name__ == "__main__":
-    app.run(host = '0.0.0.0', debug = False, port = "5000")
+    app.run(host = 'localhost', debug = False, port = "5000")
